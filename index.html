@@ -822,7 +822,7 @@ function openAddBacklog(){
   `,async()=>{
     const descricao=v('f-desc');
     if(!descricao.trim()){toast('Informe uma descrição.');return;}
-    const nextId='BL-'+String(DB.backlog.length+1).padStart(3,'0');
+    const nextId='BL-'+Date.now();
     const ordem=DB.backlog.length;
     const item={id:nextId,title:descricao.slice(0,80),descricao,empresa:v('f-empresa'),solicitante:v('f-solic'),status:v('f-status'),prazo:v('f-prazo'),origem:'manual',ordem,created:new Date().toISOString().slice(0,10),pipeline_ativo:false,ultima_importacao:null};
     const ok=await sbInsert('backlog',item);
@@ -1082,7 +1082,7 @@ function openAddRefinamento(){
     <div class="form-group"><label class="form-label">Participantes</label><input class="form-input" id="f-part"></div>
     <div class="form-group"><label class="form-label">Notas</label><textarea class="form-textarea" id="f-notas"></textarea></div>
   `,async()=>{
-    const nextId='REF-'+String(DB.refinamento.length+1).padStart(3,'0');
+    const nextId='REF-'+Date.now();
     const item={id:nextId,titulo:v('f-titulo'),data:v('f-data'),itens:v('f-itens'),participantes:v('f-part'),status:v('f-status'),notas:v('f-notas')};
     const ok=await sbInsert('refinamento',item);
     if(ok){DB.refinamento.unshift(item);closeModal();renderRefinamento();updateCounts();toast('Sessão registrada!');}
@@ -1150,7 +1150,7 @@ function openAddUS(){
     <div class="form-group"><label class="form-label">Responsável</label><input class="form-input" id="f-resp"></div>
     <div class="form-group"><label class="form-label">Critérios (um por linha)</label><textarea class="form-textarea" id="f-criterios" style="min-height:90px"></textarea></div>
   `,async()=>{
-    const nextId='US-'+String(DB.historias.length+1).padStart(3,'0');
+    const nextId='US-'+Date.now();
     const criterios=v('f-criterios').split('\n').filter(l=>l.trim()).map(t=>({texto:t.trim(),done:false}));
     const item={id:nextId,titulo:v('f-titulo'),story:v('f-story'),status:v('f-status'),pontos:parseInt(v('f-pontos'))||1,responsavel:v('f-resp'),criterios:JSON.stringify(criterios)};
     const ok=await sbInsert('historias',item);
@@ -1200,7 +1200,7 @@ function openAddDoc(){
     <div class="form-group"><label class="form-label">Categoria</label><select class="form-select" id="f-cat"><option>Estratégia</option><option>Processo</option><option>Referência</option><option>Técnico</option></select></div>
     <div class="form-group"><label class="form-label">Conteúdo</label><textarea class="form-textarea" id="f-conteudo" style="min-height:120px"></textarea></div>
   `,async()=>{
-    const nextId='DOC-'+String(DB.docs.length+1).padStart(3,'0');
+    const nextId='DOC-'+Date.now();
     const sections=[{titulo:'Conteúdo',conteudo:v('f-conteudo')}];
     const item={id:nextId,titulo:v('f-titulo'),categoria:v('f-cat'),updated:new Date().toISOString().slice(0,10),sections:JSON.stringify(sections)};
     const ok=await sbInsert('docs',item);
@@ -1270,7 +1270,7 @@ function openAddDeploy(){
     </div>
     <div class="form-group"><label class="form-label">Escopo</label><textarea class="form-textarea" id="f-escopo" placeholder="Descreva o que será entregue neste deploy…"></textarea></div>
   `,async()=>{
-    const nextId='DEP-'+String(DB.deploy.length+1).padStart(3,'0');
+    const nextId='DEP-'+Date.now();
     const item={id:nextId,ordem:parseInt(v('f-ordem'))||nextOrdem,data_programada:v('f-data'),ambiente:v('f-amb'),status:v('f-status'),escopo:v('f-escopo')};
     const ok=await sbInsert('deploy',item);
     if(ok){DB.deploy.push(item);closeModal();renderCronograma();toast('Linha adicionada!');}
