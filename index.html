@@ -255,6 +255,66 @@ tbody td{padding:11px 14px;vertical-align:middle;color:var(--ink);}
 ::-webkit-scrollbar{width:6px;}
 ::-webkit-scrollbar-track{background:var(--paper);}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
+
+/* ── ROADMAP ─────────────────────────────────── */
+.rdm-tabs{display:flex;gap:3px;background:var(--paper2);border-radius:8px;padding:3px;}
+.rdm-tab{padding:5px 14px;border-radius:6px;font-size:13px;cursor:pointer;border:none;background:transparent;color:var(--muted);font-family:var(--font-body);transition:all .15s;}
+.rdm-tab.active{background:var(--white);color:var(--ink);font-weight:500;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.rdm-tab:hover:not(.active){color:var(--ink);}
+.rdm-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:1.25rem;}
+.rdm-scard{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;position:relative;overflow:hidden;}
+.rdm-scard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.rdm-scard.c1::before{background:var(--accent3);}
+.rdm-scard.c2::before{background:var(--accent2);}
+.rdm-scard.c3::before{background:var(--p1);}
+.rdm-scard.c4::before{background:var(--accent);}
+.rdm-scard-val{font-family:var(--font-display);font-size:28px;font-weight:600;color:var(--ink);line-height:1;margin-bottom:4px;}
+.rdm-scard-label{font-size:10px;font-family:var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+.rdm-gantt-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow-x:auto;}
+.rdm-gtable{width:100%;border-collapse:collapse;min-width:740px;}
+.rdm-gtable th{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);padding:9px 14px;text-align:left;background:var(--paper);border-bottom:1px solid var(--border);white-space:nowrap;}
+.rdm-gtable td{padding:9px 14px;border-bottom:1px solid var(--border);vertical-align:middle;}
+.rdm-gtable tr:last-child td{border-bottom:none;}
+.rdm-gtable tr:hover td{background:var(--paper);}
+.rdm-pname{font-size:13px;font-weight:500;color:var(--ink);}
+.rdm-parea{font-size:11px;color:var(--muted);margin-top:1px;font-family:var(--font-mono);}
+.rdm-bar-grid{position:relative;height:30px;display:grid;grid-template-columns:repeat(12,1fr);gap:1px;}
+.rdm-bar-bg{background:var(--paper2);border-radius:2px;height:100%;}
+.rdm-bar-fill{position:absolute;top:5px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:flex-end;padding-right:6px;overflow:hidden;cursor:pointer;transition:opacity .15s;}
+.rdm-bar-fill:hover{opacity:.82;}
+.rdm-bar-lbl{font-size:10px;font-weight:500;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--font-mono);}
+.rdm-badge{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:99px;font-family:var(--font-mono);white-space:nowrap;}
+.rdm-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+.rdm-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;display:flex;flex-direction:column;gap:10px;transition:box-shadow .15s;}
+.rdm-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.rdm-card-hd{display:flex;align-items:flex-start;gap:10px;}
+.rdm-card-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;margin-top:3px;}
+.rdm-card-name{font-size:14px;font-weight:500;color:var(--ink);line-height:1.3;}
+.rdm-card-obj{font-size:13px;color:#3a3630;line-height:1.55;}
+.rdm-card-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.rdm-card-dates{font-size:11px;color:var(--muted);margin-left:auto;font-family:var(--font-mono);}
+.rdm-card-ft{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--border);}
+.rdm-card-link{font-size:12px;color:var(--accent3);text-decoration:none;display:inline-flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:var(--font-body);}
+.rdm-card-link:hover{opacity:.75;}
+.rdm-card-link-empty{font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:5px;}
+.rdm-kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:start;}
+@media(max-width:900px){.rdm-kanban{grid-template-columns:repeat(2,1fr);}}
+.rdm-kcol{background:var(--paper2);border-radius:var(--radius);padding:10px;}
+.rdm-kcol-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.rdm-kcol-title{font-size:10px;font-family:var(--font-mono);letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);}
+.rdm-kcol-count{font-size:11px;background:var(--white);border-radius:99px;padding:1px 8px;color:var(--muted);font-family:var(--font-mono);}
+.rdm-kcol-body{display:flex;flex-direction:column;gap:8px;min-height:60px;}
+.rdm-kcard{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:12px 14px;cursor:grab;transition:box-shadow .12s;}
+.rdm-kcard:hover{box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.rdm-kcard.dragover{outline:2px dashed var(--accent3);outline-offset:2px;}
+.rdm-kcard-hd{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.rdm-kcard-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+.rdm-kcard-name{font-size:13px;font-weight:500;color:var(--ink);line-height:1.3;}
+.rdm-kcard-meta{display:flex;flex-wrap:wrap;gap:5px;align-items:center;}
+.rdm-kcard-dates{font-size:10px;color:var(--muted);margin-left:auto;font-family:var(--font-mono);}
+.rdm-ibtns{display:flex;gap:4px;}
+.rdm-ibtn{background:transparent;border:1px solid transparent;cursor:pointer;color:var(--muted);padding:4px 6px;border-radius:6px;display:flex;align-items:center;font-size:13px;transition:all .12s;}
+.rdm-ibtn:hover{background:var(--paper2);border-color:var(--border);color:var(--ink);}
 </style>
 </head>
 <body>
@@ -290,6 +350,7 @@ tbody td{padding:11px 14px;vertical-align:middle;color:var(--ink);}
     <button class="nav-item" onclick="goTo('historias')"><span class="nav-icon">◇</span> Histórias<span class="nav-count" id="nav-count-historias">0</span></button>
     <button class="nav-item" onclick="goTo('docs')"><span class="nav-icon">◻</span> Documentação<span class="nav-count" id="nav-count-docs">0</span></button>
     <button class="nav-item" onclick="goTo('cronograma')"><span class="nav-icon">📅</span> Cronograma</button>
+    <button class="nav-item" onclick="goTo('roadmap')"><span class="nav-icon">◈</span> Roadmap</button>
   </div>
   <div class="sidebar-footer">v5.0 · Supabase</div>
 </nav>
@@ -436,6 +497,11 @@ tbody td{padding:11px 14px;vertical-align:middle;color:var(--ink);}
       </div>
     </div>
 
+    <!-- ROADMAP -->
+    <div class="view" id="view-roadmap">
+      <div id="rdm-root"></div>
+    </div>
+
   </div>
 </div>
 
@@ -547,6 +613,7 @@ const PAGE_META={
   historias:{title:'Histórias',badge:'User Stories'},
   docs:{title:'Documentação',badge:'Base de conhecimento'},
   cronograma:{title:'Cronograma',badge:'Deploy do Maestro'},
+  roadmap:{title:'Roadmap 2026',badge:'Grandes projetos'},
 };
 
 function goTo(view){
@@ -565,6 +632,7 @@ function goTo(view){
   if(view==='historias')renderUS();
   if(view==='docs')renderDocs();
   if(view==='cronograma')renderCronograma();
+  if(view==='roadmap')rdmInit();
 }
 
 function renderTopbarActions(view){
@@ -576,6 +644,7 @@ function renderTopbarActions(view){
     historias:`<button class="btn btn-primary" onclick="openAddUS()">+ Nova história</button>`,
     docs:`<button class="btn btn-primary" onclick="openAddDoc()">+ Novo documento</button>`,
     cronograma:`<button class="btn btn-primary" onclick="openAddDeploy()">+ Nova linha</button>`,
+    roadmap:`<button class="btn btn-primary" onclick="rdmOpenModal()">+ Novo projeto</button>`,
   };
   el.innerHTML=m[view]||'';
 }
@@ -589,6 +658,7 @@ function renderAll(){
   if(currentView==='historias')renderUS();
   if(currentView==='docs')renderDocs();
   if(currentView==='cronograma')renderCronograma();
+  if(currentView==='roadmap')rdmRender();
 }
 
 // ══════════════════════════════════════
@@ -1344,6 +1414,244 @@ function openModal(title,bodyHtml,onSave,saveLabel){
   document.getElementById('modal-overlay').classList.add('open');
 }
 function modalSave(){if(window._modalSave)window._modalSave();}
+// ══════════════════════════════════════
+// ROADMAP
+// ══════════════════════════════════════
+const RDM_TABLE='roadmap_projects';
+const RDM_AREA_COLORS={'IA':'#534AB7','Suprimentos':'#1D9E75','Security':'#D85A30','RH':'#D4537E','Integração':'#378ADD','Ponto':'#BA7517'};
+const RDM_COLOR_POOL=['#534AB7','#1D9E75','#D85A30','#D4537E','#378ADD','#BA7517','#0F6E56','#993C1D'];
+const RDM_EFFORT_STYLE={'P':{bg:'#e5f0ec',color:'#3a6b5a'},'M':{bg:'#e8eef8',color:'#3a4e7a'},'G':{bg:'#faeee8',color:'#c85a2a'},'XG':{bg:'#fce8e8',color:'#c0392b'}};
+const RDM_STATUS_STYLE={'planejado':{bg:'#f0ede6',color:'#7a7268'},'em andamento':{bg:'#e5f0ec',color:'#3a6b5a'},'pausado':{bg:'#faeee8',color:'#c85a2a'},'concluído':{bg:'#e5f0ec',color:'#2d5547'}};
+const RDM_KANBAN_COLS=['planejado','em andamento','pausado','concluído'];
+const RDM_MONTHS=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const RDM_YEAR=2026;
+let rdmProjects=[],rdmView='gantt',rdmEditingId=null,rdmDragId=null,rdmColorMap={},rdmColorIdx=0,rdmLoaded=false;
+
+function rdmAreaColor(area){
+  if(RDM_AREA_COLORS[area])return RDM_AREA_COLORS[area];
+  if(!rdmColorMap[area])rdmColorMap[area]=RDM_COLOR_POOL[rdmColorIdx++%RDM_COLOR_POOL.length];
+  return rdmColorMap[area];
+}
+function rdmMonthIdx(ym){const[y,m]=(ym||'').split('-').map(Number);return y<RDM_YEAR?0:y>RDM_YEAR?11:(m||1)-1;}
+function rdmFmtMonth(ym){const[y,m]=(ym||'').split('-').map(Number);return RDM_MONTHS[(m||1)-1]+'/'+String(y||RDM_YEAR).slice(2);}
+function rdmBadge(text,bg,color){return`<span class="rdm-badge" style="background:${bg};color:${color}">${text}</span>`;}
+
+async function rdmLoad(){
+  const data=await sbGet(RDM_TABLE,'order=start_date.asc');
+  rdmProjects=data||[];
+  rdmLoaded=true;
+  rdmRender();
+}
+
+async function rdmInit(){
+  if(!rdmLoaded)await rdmLoad();
+  else rdmRender();
+}
+
+function rdmSetView(v){rdmView=v;rdmRender();}
+
+function rdmRender(){
+  const root=document.getElementById('rdm-root');
+  if(!root)return;
+  const total=rdmProjects.length;
+  const em=rdmProjects.filter(p=>p.status==='em andamento').length;
+  const plan=rdmProjects.filter(p=>p.status==='planejado').length;
+  const done=rdmProjects.filter(p=>p.status==='concluído').length;
+  root.innerHTML=`
+    <div class="rdm-summary">
+      <div class="rdm-scard c1"><div class="rdm-scard-val">${total}</div><div class="rdm-scard-label">Total projetos</div></div>
+      <div class="rdm-scard c2"><div class="rdm-scard-val">${em}</div><div class="rdm-scard-label">Em andamento</div></div>
+      <div class="rdm-scard c3"><div class="rdm-scard-val">${plan}</div><div class="rdm-scard-label">Planejados</div></div>
+      <div class="rdm-scard c4"><div class="rdm-scard-val">${done}</div><div class="rdm-scard-label">Concluídos</div></div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <div class="rdm-tabs">
+        <button class="rdm-tab${rdmView==='gantt'?' active':''}" onclick="rdmSetView('gantt')">Gantt</button>
+        <button class="rdm-tab${rdmView==='cards'?' active':''}" onclick="rdmSetView('cards')">Cards</button>
+        <button class="rdm-tab${rdmView==='kanban'?' active':''}" onclick="rdmSetView('kanban')">Kanban</button>
+      </div>
+    </div>
+    <div id="rdm-view-body"></div>`;
+  if(rdmView==='gantt')rdmRenderGantt();
+  if(rdmView==='cards')rdmRenderCards();
+  if(rdmView==='kanban')rdmRenderKanban();
+}
+
+function rdmRenderGantt(){
+  const el=document.getElementById('rdm-view-body');
+  const mhds=RDM_MONTHS.map(m=>`<div style="text-align:center;font-size:10px;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.04em;">${m}</div>`).join('');
+  const rows=rdmProjects.length?rdmProjects.map(p=>{
+    const s=rdmMonthIdx(p.start_date),e=Math.min(rdmMonthIdx(p.end_date),11);
+    const color=rdmAreaColor(p.area),left=(s/12)*100,width=((e-s+1)/12)*100;
+    const eff=RDM_EFFORT_STYLE[p.effort]||RDM_EFFORT_STYLE['M'];
+    const st=RDM_STATUS_STYLE[p.status]||RDM_STATUS_STYLE['planejado'];
+    return`<tr>
+      <td><div class="rdm-pname">${p.name}</div><div class="rdm-parea">${p.area||''}</div></td>
+      <td>${rdmBadge(p.effort||'M',eff.bg,eff.color)}</td>
+      <td>${rdmBadge(p.status||'planejado',st.bg,st.color)}</td>
+      <td style="padding:6px 4px;min-width:380px;">
+        <div class="rdm-bar-grid" style="padding:0 4px;">
+          ${RDM_MONTHS.map(()=>'<div class="rdm-bar-bg"></div>').join('')}
+          <div class="rdm-bar-fill" style="left:calc(${left}% + 4px);width:calc(${width}% - 2px);background:${color};" title="${p.name}: ${p.start_date} → ${p.end_date}">
+            <span class="rdm-bar-lbl">${p.name}</span>
+          </div>
+        </div>
+      </td>
+      <td><div class="rdm-ibtns">
+        <button class="rdm-ibtn" onclick="rdmOpenModal('${p.id}')" title="Editar">✎</button>
+        <button class="rdm-ibtn btn-danger" onclick="rdmDelete('${p.id}')" title="Excluir">✕</button>
+      </div></td>
+    </tr>`;
+  }).join(''):`<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--muted);font-size:13px;">Nenhum projeto cadastrado.</td></tr>`;
+  el.innerHTML=`<div class="rdm-gantt-wrap"><table class="rdm-gtable">
+    <thead><tr>
+      <th style="min-width:200px;">Projeto</th>
+      <th style="min-width:70px;">Esforço</th>
+      <th style="min-width:120px;">Status</th>
+      <th style="padding:9px 4px;min-width:380px;"><div style="display:grid;grid-template-columns:repeat(12,1fr);gap:1px;padding:0 4px;">${mhds}</div></th>
+      <th style="width:72px;"></th>
+    </tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+}
+
+function rdmRenderCards(){
+  const el=document.getElementById('rdm-view-body');
+  if(!rdmProjects.length){el.innerHTML=`<div class="empty-state"><div class="empty-icon">◈</div><p>Nenhum projeto cadastrado.</p></div>`;return;}
+  el.innerHTML=`<div class="rdm-cards-grid">${rdmProjects.map(p=>{
+    const color=rdmAreaColor(p.area),eff=RDM_EFFORT_STYLE[p.effort]||RDM_EFFORT_STYLE['M'],st=RDM_STATUS_STYLE[p.status]||RDM_STATUS_STYLE['planejado'];
+    const linkEl=p.link_backlog
+      ?`<a class="rdm-card-link" href="${p.link_backlog}" target="_blank">◈ Ver backlog</a>`
+      :`<span class="rdm-card-link-empty">◈ Backlog não vinculado</span>`;
+    return`<div class="rdm-card">
+      <div class="rdm-card-hd"><div class="rdm-card-dot" style="background:${color}"></div><div class="rdm-card-name">${p.name}</div></div>
+      ${p.objetivo?`<div class="rdm-card-obj">${p.objetivo}</div>`:''}
+      <div class="rdm-card-meta">
+        ${rdmBadge(p.effort||'M',eff.bg,eff.color)}
+        ${rdmBadge(p.status||'planejado',st.bg,st.color)}
+        <span class="rdm-card-dates">${rdmFmtMonth(p.start_date)} → ${rdmFmtMonth(p.end_date)}</span>
+      </div>
+      <div class="rdm-card-ft">
+        ${linkEl}
+        <div class="rdm-ibtns">
+          <button class="rdm-ibtn" onclick="rdmOpenModal('${p.id}')">✎</button>
+          <button class="rdm-ibtn btn-danger" onclick="rdmDelete('${p.id}')">✕</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function rdmRenderKanban(){
+  const el=document.getElementById('rdm-view-body');
+  el.innerHTML=`<div class="rdm-kanban">${RDM_KANBAN_COLS.map(col=>{
+    const items=rdmProjects.filter(p=>p.status===col);
+    const st=RDM_STATUS_STYLE[col]||RDM_STATUS_STYLE['planejado'];
+    const cards=items.map(p=>{
+      const color=rdmAreaColor(p.area),eff=RDM_EFFORT_STYLE[p.effort]||RDM_EFFORT_STYLE['M'];
+      return`<div class="rdm-kcard" draggable="true"
+        ondragstart="rdmDragStart('${p.id}')"
+        ondragover="event.preventDefault();this.classList.add('dragover')"
+        ondragleave="this.classList.remove('dragover')"
+        ondrop="rdmDrop(event,'${col}',this)">
+        <div class="rdm-kcard-hd"><div class="rdm-kcard-dot" style="background:${color}"></div><div class="rdm-kcard-name">${p.name}</div></div>
+        <div class="rdm-kcard-meta">
+          ${rdmBadge(p.area||'—','var(--paper2)','var(--muted)')}
+          ${rdmBadge(p.effort||'M',eff.bg,eff.color)}
+          <span class="rdm-kcard-dates">${rdmFmtMonth(p.start_date)} → ${rdmFmtMonth(p.end_date)}</span>
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-top:8px;">
+          <button class="rdm-ibtn" onclick="rdmOpenModal('${p.id}')">✎</button>
+        </div>
+      </div>`;
+    }).join('')||`<div style="text-align:center;font-size:12px;color:var(--muted);padding:8px 0;">vazio</div>`;
+    const colLabel={planejado:'Planejado','em andamento':'Em andamento',pausado:'Pausado','concluído':'Concluído'}[col];
+    return`<div class="rdm-kcol" ondragover="event.preventDefault()" ondrop="rdmDrop(event,'${col}',null)">
+      <div class="rdm-kcol-hd">
+        <span class="rdm-kcol-title" style="color:${st.color}">${colLabel}</span>
+        <span class="rdm-kcol-count">${items.length}</span>
+      </div>
+      <div class="rdm-kcol-body">${cards}</div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+function rdmDragStart(id){rdmDragId=id;}
+async function rdmDrop(event,newStatus,cardEl){
+  event.preventDefault();
+  if(cardEl)cardEl.classList.remove('dragover');
+  if(!rdmDragId)return;
+  const p=rdmProjects.find(x=>x.id===rdmDragId);
+  if(p&&p.status!==newStatus){
+    const ok=await sbUpdate(RDM_TABLE,rdmDragId,{status:newStatus});
+    if(ok){p.status=newStatus;rdmRender();toast('Status atualizado!');}
+    else toast('Erro ao atualizar.');
+  }
+  rdmDragId=null;
+}
+
+function rdmOpenModal(id){
+  rdmEditingId=id||null;
+  const p=id?rdmProjects.find(x=>x.id===id):null;
+  openModal(p?'Editar projeto':'Novo projeto — Roadmap',`
+    <div class="form-group"><label class="form-label">Nome do projeto *</label><input class="form-input" id="rdm-fname" placeholder="Ex: Agentes de IA" value="${p?p.name:''}"></div>
+    <div class="form-group"><label class="form-label">Objetivo (1 linha)</label><input class="form-input" id="rdm-fobj" placeholder="O que esse projeto entrega?" value="${p?(p.objetivo||''):''}"></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Área / sistema</label><input class="form-input" id="rdm-farea" placeholder="Ex: IA, RH, Suprimentos…" value="${p?(p.area||''):''}"></div>
+      <div class="form-group"><label class="form-label">Esforço</label>
+        <select class="form-select" id="rdm-feffort">
+          <option value="P" ${p?.effort==='P'?'selected':''}>P — Pequeno</option>
+          <option value="M" ${(!p||p.effort==='M')?'selected':''}>M — Médio</option>
+          <option value="G" ${p?.effort==='G'?'selected':''}>G — Grande</option>
+          <option value="XG" ${p?.effort==='XG'?'selected':''}>XG — Muito grande</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Início *</label><input class="form-input" id="rdm-fstart" type="month" value="${p?p.start_date:RDM_YEAR+'-01'}"></div>
+      <div class="form-group"><label class="form-label">Prazo *</label><input class="form-input" id="rdm-fend" type="month" value="${p?p.end_date:RDM_YEAR+'-06'}"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Status</label>
+      <select class="form-select" id="rdm-fstatus">
+        <option value="planejado" ${(!p||p.status==='planejado')?'selected':''}>Planejado</option>
+        <option value="em andamento" ${p?.status==='em andamento'?'selected':''}>Em andamento</option>
+        <option value="pausado" ${p?.status==='pausado'?'selected':''}>Pausado</option>
+        <option value="concluído" ${p?.status==='concluído'?'selected':''}>Concluído</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">Link do backlog</label><input class="form-input" id="rdm-flink" placeholder="https://…" value="${p?(p.link_backlog||''):''}"></div>
+    <div class="form-group"><label class="form-label">Notas</label><textarea class="form-textarea" id="rdm-fnotes" placeholder="Contexto, dependências, riscos…">${p?(p.notas||''):''}</textarea></div>
+  `,rdmSaveProject,'Salvar');
+}
+
+async function rdmSaveProject(){
+  const name=v('rdm-fname').trim(),start=v('rdm-fstart'),end=v('rdm-fend');
+  if(!name||!start||!end){toast('Preencha nome, início e prazo.');return;}
+  if(start>end){toast('Início deve ser antes do prazo.');return;}
+  const proj={name,objetivo:v('rdm-fobj').trim(),area:v('rdm-farea').trim()||'Geral',start_date:start,end_date:end,effort:v('rdm-feffort'),status:v('rdm-fstatus'),link_backlog:v('rdm-flink').trim(),notas:v('rdm-fnotes').trim()};
+  let ok;
+  if(rdmEditingId){
+    ok=await sbUpdate(RDM_TABLE,rdmEditingId,proj);
+    if(ok){const idx=rdmProjects.findIndex(x=>x.id===rdmEditingId);if(idx>=0)Object.assign(rdmProjects[idx],proj);}
+  }else{
+    proj.id='rdm-'+Date.now();
+    proj.created_at=new Date().toISOString().slice(0,10);
+    ok=await sbInsert(RDM_TABLE,proj);
+    if(ok)rdmProjects.push(proj);
+  }
+  if(ok){closeModal();rdmRender();toast(rdmEditingId?'Projeto atualizado!':'Projeto criado!');}
+  else toast('Erro ao salvar.');
+  rdmEditingId=null;
+}
+
+async function rdmDelete(id){
+  const p=rdmProjects.find(x=>x.id===id);
+  if(!confirm(`Remover "${p?.name}" do roadmap?`))return;
+  const ok=await sbDelete(RDM_TABLE,id);
+  if(ok){rdmProjects=rdmProjects.filter(x=>x.id!==id);rdmRender();toast('Projeto removido.');}
+  else toast('Erro ao remover.');
+}
+
 function closeModal(){document.getElementById('modal-overlay').classList.remove('open');window._modalSave=null;}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 </script>
