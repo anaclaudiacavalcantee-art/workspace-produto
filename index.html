@@ -252,9 +252,6 @@ tbody td{padding:11px 14px;vertical-align:middle;color:var(--ink);}
 .import-zone{border:2px dashed var(--border);border-radius:10px;padding:24px;text-align:center;cursor:pointer;transition:all 0.15s;background:var(--paper);margin-bottom:16px;}
 .import-zone:hover,.import-zone.drag{border-color:var(--accent3);background:#f0f4fc;}
 .import-zone p{font-size:13px;color:var(--muted);margin-top:6px;}
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-track{background:var(--paper);}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
 
 /* ── ROADMAP ─────────────────────────────────── */
 .rdm-tabs{display:flex;gap:3px;background:var(--paper2);border-radius:8px;padding:3px;}
@@ -264,10 +261,7 @@ tbody td{padding:11px 14px;vertical-align:middle;color:var(--ink);}
 .rdm-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:1.25rem;}
 .rdm-scard{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;position:relative;overflow:hidden;}
 .rdm-scard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
-.rdm-scard.c1::before{background:var(--accent3);}
-.rdm-scard.c2::before{background:var(--accent2);}
-.rdm-scard.c3::before{background:var(--p1);}
-.rdm-scard.c4::before{background:var(--accent);}
+.rdm-scard.c1::before{background:var(--accent3);}.rdm-scard.c2::before{background:var(--accent2);}.rdm-scard.c3::before{background:var(--p1);}.rdm-scard.c4::before{background:var(--accent);}
 .rdm-scard-val{font-family:var(--font-display);font-size:28px;font-weight:600;color:var(--ink);line-height:1;margin-bottom:4px;}
 .rdm-scard-label{font-size:10px;font-family:var(--font-mono);letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
 .rdm-gantt-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow-x:auto;}
@@ -297,6 +291,7 @@ tbody td{padding:11px 14px;vertical-align:middle;color:var(--ink);}
 .rdm-card-link{font-size:12px;color:var(--accent3);text-decoration:none;display:inline-flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:var(--font-body);}
 .rdm-card-link:hover{opacity:.75;}
 .rdm-card-link-empty{font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:5px;}
+.rdm-card-bl-ids{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px;}
 .rdm-kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:start;}
 @media(max-width:900px){.rdm-kanban{grid-template-columns:repeat(2,1fr);}}
 .rdm-kcol{background:var(--paper2);border-radius:var(--radius);padding:10px;}
@@ -315,6 +310,29 @@ tbody td{padding:11px 14px;vertical-align:middle;color:var(--ink);}
 .rdm-ibtns{display:flex;gap:4px;}
 .rdm-ibtn{background:transparent;border:1px solid transparent;cursor:pointer;color:var(--muted);padding:4px 6px;border-radius:6px;display:flex;align-items:center;font-size:13px;transition:all .12s;}
 .rdm-ibtn:hover{background:var(--paper2);border-color:var(--border);color:var(--ink);}
+
+/* ── PIN REFINAMENTO ─────────────────────────────── */
+.pin-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2000;align-items:center;justify-content:center;}
+.pin-overlay.open{display:flex;}
+.pin-box{background:var(--white);border-radius:16px;padding:36px 40px;width:340px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.2);}
+.pin-icon{font-size:28px;margin-bottom:10px;}
+.pin-title{font-family:var(--font-display);font-size:18px;font-weight:600;margin-bottom:6px;color:var(--ink);}
+.pin-sub{font-size:13px;color:var(--muted);margin-bottom:22px;line-height:1.5;}
+.pin-dots{display:flex;justify-content:center;gap:10px;margin-bottom:20px;}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--border);background:transparent;transition:all .2s;}
+.pin-dot.filled{background:var(--ink);border-color:var(--ink);}
+.pin-dot.error{background:#c0392b;border-color:#c0392b;}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.pin-btn{padding:14px;border-radius:10px;border:1px solid var(--border);background:var(--white);font-size:18px;font-weight:500;font-family:var(--font-mono);cursor:pointer;color:var(--ink);transition:all .12s;}
+.pin-btn:hover{background:var(--paper2);border-color:var(--paper3);}
+.pin-btn:active{transform:scale(.95);}
+.pin-btn.del{font-size:14px;color:var(--muted);}
+.pin-error{font-size:12.5px;color:#c0392b;min-height:18px;margin-top:2px;}
+.pin-cancel{font-size:12px;color:var(--muted);cursor:pointer;background:none;border:none;font-family:var(--font-body);padding:4px 8px;border-radius:6px;}
+.pin-cancel:hover{color:var(--ink);background:var(--paper2);}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--paper);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
 </style>
 </head>
 <body>
@@ -346,7 +364,7 @@ tbody td{padding:11px 14px;vertical-align:middle;color:var(--ink);}
     <button class="nav-item active" onclick="goTo('overview')"><span class="nav-icon">⬡</span> Visão Geral</button>
     <button class="nav-item" onclick="goTo('backlog')"><span class="nav-icon">◈</span> Backlog<span class="nav-count" id="nav-count-backlog">0</span></button>
     <button class="nav-item" onclick="goTo('pipeline')"><span class="nav-icon">◉</span> Pipeline<span class="nav-count" id="nav-count-pipeline">0</span></button>
-    <button class="nav-item" onclick="goTo('refinamento')"><span class="nav-icon">◎</span> Refinamento<span class="nav-count" id="nav-count-refinamento">0</span></button>
+    <button class="nav-item" onclick="goToRefinamento()"><span class="nav-icon">◎</span> Refinamento<span class="nav-count" id="nav-count-refinamento">0</span></button>
     <button class="nav-item" onclick="goTo('historias')"><span class="nav-icon">◇</span> Histórias<span class="nav-count" id="nav-count-historias">0</span></button>
     <button class="nav-item" onclick="goTo('docs')"><span class="nav-icon">◻</span> Documentação<span class="nav-count" id="nav-count-docs">0</span></button>
     <button class="nav-item" onclick="goTo('cronograma')"><span class="nav-icon">📅</span> Cronograma</button>
@@ -397,9 +415,10 @@ tbody td{padding:11px 14px;vertical-align:middle;color:var(--ink);}
       <div class="toolbar">
         <div class="search-box">
           <span class="search-icon">⌕</span>
-          <input type="text" id="backlog-search" placeholder="Buscar por empresa, solicitante e descrição" oninput="renderBacklog()">
+          <input type="text" id="backlog-search" placeholder="Buscar por ID, empresa, solicitante ou descrição" oninput="renderBacklog()">
         </div>
         <select class="filter-select" id="backlog-filter-status" onchange="renderBacklog()">
+          <option value="abertos" selected>Em aberto</option>
           <option value="">Todos os status</option>
           <option>Não iniciado</option><option>Em Execução</option><option>Pendente</option><option>Cancelado</option><option>Concluído</option>
         </select>
@@ -448,7 +467,7 @@ tbody td{padding:11px 14px;vertical-align:middle;color:var(--ink);}
     <!-- REFINAMENTO -->
     <div class="view" id="view-refinamento">
       <div class="refinement-table-wrap">
-        <table><thead><tr><th>Sessão</th><th>Data</th><th>Itens</th><th>Participantes</th><th>Status</th><th>Notas</th><th></th></tr></thead>
+        <table><thead><tr><th>Sessão</th><th>Data</th><th>Itens</th><th>Participantes</th><th>Tarefa Backlog</th><th>Status</th><th>Notas</th><th></th></tr></thead>
         <tbody id="refinamento-tbody"></tbody></table>
       </div>
     </div>
@@ -502,6 +521,38 @@ tbody td{padding:11px 14px;vertical-align:middle;color:var(--ink);}
       <div id="rdm-root"></div>
     </div>
 
+  </div>
+</div>
+
+
+<!-- PIN REFINAMENTO -->
+<div class="pin-overlay" id="pin-overlay">
+  <div class="pin-box">
+    <div class="pin-icon">◎</div>
+    <div class="pin-title">Refinamento</div>
+    <div class="pin-sub">Acesso restrito. Informe o PIN para continuar.</div>
+    <div class="pin-dots" id="pin-dots">
+      <div class="pin-dot" id="pd0"></div>
+      <div class="pin-dot" id="pd1"></div>
+      <div class="pin-dot" id="pd2"></div>
+      <div class="pin-dot" id="pd3"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-btn" onclick="pinPress('1')">1</button>
+      <button class="pin-btn" onclick="pinPress('2')">2</button>
+      <button class="pin-btn" onclick="pinPress('3')">3</button>
+      <button class="pin-btn" onclick="pinPress('4')">4</button>
+      <button class="pin-btn" onclick="pinPress('5')">5</button>
+      <button class="pin-btn" onclick="pinPress('6')">6</button>
+      <button class="pin-btn" onclick="pinPress('7')">7</button>
+      <button class="pin-btn" onclick="pinPress('8')">8</button>
+      <button class="pin-btn" onclick="pinPress('9')">9</button>
+      <button class="pin-btn del" onclick="pinPress('clear')">✕</button>
+      <button class="pin-btn" onclick="pinPress('0')">0</button>
+      <button class="pin-btn del" onclick="pinPress('del')">⌫</button>
+    </div>
+    <div class="pin-error" id="pin-error"></div>
+    <button class="pin-cancel" onclick="pinCancel()">Cancelar</button>
   </div>
 </div>
 
@@ -654,7 +705,7 @@ function renderAll(){
   if(currentView==='overview')renderOverview();
   if(currentView==='backlog')renderBacklog();
   if(currentView==='pipeline')renderPipeline();
-  if(currentView==='refinamento')renderRefinamento();
+  if(currentView==='refinamento'&&pinUnlocked)renderRefinamento();
   if(currentView==='historias')renderUS();
   if(currentView==='docs')renderDocs();
   if(currentView==='cronograma')renderCronograma();
@@ -732,8 +783,9 @@ function renderBacklog(){
   const mode=document.getElementById('backlog-view-mode').value;
 
   let items=DB.backlog.filter(b=>{
-    const ms=!search||(b.descricao||'').toLowerCase().includes(search)||(b.empresa||'').toLowerCase().includes(search)||(b.solicitante||'').toLowerCase().includes(search);
-    return ms&&(!fStatus||b.status===fStatus)&&(!fEmpresa||b.empresa===fEmpresa);
+    const ms=!search||(b.descricao||'').toLowerCase().includes(search)||(b.empresa||'').toLowerCase().includes(search)||(b.solicitante||'').toLowerCase().includes(search)||(b.id||'').toLowerCase().includes(search);
+    const statusOk=fStatus==='abertos'?b.status!=='Concluído':(!fStatus||b.status===fStatus);
+    return ms&&statusOk&&(!fEmpresa||b.empresa===fEmpresa);
   });
 
   // barra importação
@@ -762,7 +814,7 @@ function renderBacklog(){
         <td style="font-size:11.5px;font-family:var(--font-mono);color:var(--muted)">${b.prazo||'—'}</td>
         <td>${b.origem==='importado'?'<span class="chip chip-import">Importado</span>':'<span class="chip chip-gray">Manual</span>'}</td>
         <td style="white-space:nowrap">
-          ${b.status==='Em Execução'?`<button class="btn btn-sm btn-pipeline" onclick="goTo('pipeline')">→ Pipeline</button>`:`<button class="btn btn-sm btn-success" onclick="iniciarPipeline('${b.id}')">▶</button>`}
+          ${b.status==='Concluído'?'':b.status==='Em Execução'?`<button class="btn btn-sm btn-pipeline" onclick="goTo('pipeline')">→ Pipeline</button>`:`<button class="btn btn-sm btn-success" onclick="iniciarPipeline('${b.id}')">▶</button>`}
           <button class="btn btn-sm" onclick="openEditBacklog('${b.id}')">✎</button>
           <button class="btn btn-sm btn-danger" onclick="deleteBacklogItem('${b.id}')">✕</button>
         </td>
@@ -802,18 +854,19 @@ function renderBacklog(){
   container.innerHTML=`<div class="backlog-list">${items.map((b)=>{
     const desc=b.descricao||b.title||'—';
     const isExec=b.status==='Em Execução';
+    const isConcluido=b.status==='Concluído';
     return`<div class="bl-card" id="blcard-${b.id}">
       <div class="bl-card-top">
         <span class="bl-id">${b.id}</span>
         ${b.empresa?`<span style="font-size:12px;font-weight:500;color:var(--ink);background:var(--paper2);padding:2px 8px;border-radius:6px;border:1px solid var(--border)">${b.empresa}</span>`:''}
         <div class="bl-actions">
-          <input class="ordem-input" type="number" min="1" value="${(b.ordem??0)+1}" title="Posição na lista"
+          ${isConcluido?'':`<input class="ordem-input" type="number" min="1" value="${(b.ordem??0)+1}" title="Posição na lista"
             onchange="definirOrdem('${b.id}',this.value)"
-            onkeydown="if(event.key==='Enter')this.blur()">
+            onkeydown="if(event.key==='Enter')this.blur()"> `}
           <select class="status-select" onchange="atualizarStatus('${b.id}',this.value)" ${isExec?'disabled':''} style="color:${statusColor(b.status||'Não iniciado')}">
             ${STATUS_LIST.map(s=>`<option value="${s}" ${(b.status||'Não iniciado')===s?'selected':''}>${s}</option>`).join('')}
           </select>
-          ${isExec?`<button class="btn btn-sm btn-pipeline" onclick="goTo('pipeline')">→ Pipeline</button>`:`<button class="btn btn-sm btn-success" onclick="iniciarPipeline('${b.id}')">▶ Iniciar</button>`}
+          ${isConcluido?'':isExec?`<button class="btn btn-sm btn-pipeline" onclick="goTo('pipeline')">→ Pipeline</button>`:`<button class="btn btn-sm btn-success" onclick="iniciarPipeline('${b.id}')">▶ Iniciar</button>`}
           <button class="btn btn-sm" onclick="openEditBacklog('${b.id}')">✎</button>
           <button class="btn btn-sm btn-danger" onclick="deleteBacklogItem('${b.id}')">✕</button>
         </div>
@@ -1131,17 +1184,21 @@ function verHistorico(id){
 function renderRefinamento(){
   const tbody=document.getElementById('refinamento-tbody');
   if(!DB.refinamento.length){tbody.innerHTML=`<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">◎</div><p>Nenhuma sessão.</p></div></td></tr>`;return;}
-  tbody.innerHTML=DB.refinamento.map(r=>`<tr>
+  tbody.innerHTML=DB.refinamento.map(r=>{
+    const blRef=r.backlog_id?DB.backlog.find(b=>b.id===r.backlog_id):null;
+    return`<tr>
     <td><div class="item-title">${r.titulo}</div><div style="font-family:var(--font-mono);font-size:10px;color:var(--muted)">${r.id}</div></td>
     <td style="font-size:13px;white-space:nowrap">${r.data}</td>
     <td style="font-size:12.5px">${r.itens}</td>
     <td style="font-size:12.5px">${r.participantes}</td>
+    <td>${r.backlog_id?`<span class="chip chip-blue" style="cursor:pointer" onclick="goTo('backlog');setTimeout(()=>{document.getElementById('backlog-search').value='${r.backlog_id}';renderBacklog();},100)" title="${blRef?blRef.descricao||blRef.title:''}">${r.backlog_id}</span>`:'<span style="color:var(--muted);font-size:12px">—</span>'}</td>
     <td>${statusChip(r.status)}</td>
     <td style="font-size:12px;color:var(--muted)">${r.notas}</td>
     <td><button class="btn btn-sm" onclick="openEditRefinamento('${r.id}')">✎</button><button class="btn btn-sm btn-danger" onclick="delItem('refinamento','${r.id}')">✕</button></td>
-  </tr>`).join('');
+  </tr>`;}).join('');
 }
 function openAddRefinamento(){
+  const blOpts=DB.backlog.filter(b=>b.status!=='Concluído').map(b=>`<option value="${b.id}">${b.id} — ${(b.descricao||b.title||'').slice(0,50)}</option>`).join('');
   openModal('Nova sessão',`
     <div class="form-group"><label class="form-label">Título</label><input class="form-input" id="f-titulo"></div>
     <div class="form-row">
@@ -1150,10 +1207,13 @@ function openAddRefinamento(){
     </div>
     <div class="form-group"><label class="form-label">Itens revisados</label><input class="form-input" id="f-itens"></div>
     <div class="form-group"><label class="form-label">Participantes</label><input class="form-input" id="f-part"></div>
+    <div class="form-group"><label class="form-label">Tarefa do backlog vinculada</label>
+      <select class="form-select" id="f-backlog-id"><option value="">— Nenhuma —</option>${blOpts}</select>
+    </div>
     <div class="form-group"><label class="form-label">Notas</label><textarea class="form-textarea" id="f-notas"></textarea></div>
   `,async()=>{
     const nextId='REF-'+Date.now();
-    const item={id:nextId,titulo:v('f-titulo'),data:v('f-data'),itens:v('f-itens'),participantes:v('f-part'),status:v('f-status'),notas:v('f-notas')};
+    const item={id:nextId,titulo:v('f-titulo'),data:v('f-data'),itens:v('f-itens'),participantes:v('f-part'),status:v('f-status'),notas:v('f-notas'),backlog_id:v('f-backlog-id')};
     const ok=await sbInsert('refinamento',item);
     if(ok){DB.refinamento.unshift(item);closeModal();renderRefinamento();updateCounts();toast('Sessão registrada!');}
     else toast('Erro ao salvar.');
@@ -1161,6 +1221,7 @@ function openAddRefinamento(){
 }
 function openEditRefinamento(id){
   const r=DB.refinamento.find(x=>x.id===id);
+  const blOptsE=DB.backlog.map(b=>`<option value="${b.id}" ${r.backlog_id===b.id?'selected':''}>${b.id} — ${(b.descricao||b.title||'').slice(0,50)}</option>`).join('');
   openModal(`Editar ${r.id}`,`
     <div class="form-group"><label class="form-label">Título</label><input class="form-input" id="f-titulo" value="${esc(r.titulo)}"></div>
     <div class="form-row">
@@ -1169,9 +1230,12 @@ function openEditRefinamento(id){
     </div>
     <div class="form-group"><label class="form-label">Itens</label><input class="form-input" id="f-itens" value="${esc(r.itens)}"></div>
     <div class="form-group"><label class="form-label">Participantes</label><input class="form-input" id="f-part" value="${esc(r.participantes)}"></div>
+    <div class="form-group"><label class="form-label">Tarefa do backlog vinculada</label>
+      <select class="form-select" id="f-backlog-id"><option value="">— Nenhuma —</option>${blOptsE}</select>
+    </div>
     <div class="form-group"><label class="form-label">Notas</label><textarea class="form-textarea" id="f-notas">${esc(r.notas)}</textarea></div>
   `,async()=>{
-    const upd={titulo:v('f-titulo'),data:v('f-data'),itens:v('f-itens'),participantes:v('f-part'),status:v('f-status'),notas:v('f-notas')};
+    const upd={titulo:v('f-titulo'),data:v('f-data'),itens:v('f-itens'),participantes:v('f-part'),status:v('f-status'),notas:v('f-notas'),backlog_id:v('f-backlog-id')};
     const ok=await sbUpdate('refinamento',id,upd);
     if(ok){Object.assign(r,upd);closeModal();renderRefinamento();toast('Atualizado!');}
   },'Salvar');
@@ -1414,6 +1478,7 @@ function openModal(title,bodyHtml,onSave,saveLabel){
   document.getElementById('modal-overlay').classList.add('open');
 }
 function modalSave(){if(window._modalSave)window._modalSave();}
+
 // ══════════════════════════════════════
 // ROADMAP
 // ══════════════════════════════════════
@@ -1435,19 +1500,18 @@ function rdmAreaColor(area){
 function rdmMonthIdx(ym){const[y,m]=(ym||'').split('-').map(Number);return y<RDM_YEAR?0:y>RDM_YEAR?11:(m||1)-1;}
 function rdmFmtMonth(ym){const[y,m]=(ym||'').split('-').map(Number);return RDM_MONTHS[(m||1)-1]+'/'+String(y||RDM_YEAR).slice(2);}
 function rdmBadge(text,bg,color){return`<span class="rdm-badge" style="background:${bg};color:${color}">${text}</span>`;}
+function rdmParseIds(raw){try{const p=typeof raw==='string'?JSON.parse(raw):raw;return Array.isArray(p)?p:[];}catch(e){return[];}}
 
 async function rdmLoad(){
   const data=await sbGet(RDM_TABLE,'order=start_date.asc');
-  rdmProjects=data||[];
+  rdmProjects=(data||[]).map(p=>({...p,backlog_ids:rdmParseIds(p.backlog_ids)}));
   rdmLoaded=true;
   rdmRender();
 }
-
 async function rdmInit(){
   if(!rdmLoaded)await rdmLoad();
   else rdmRender();
 }
-
 function rdmSetView(v){rdmView=v;rdmRender();}
 
 function rdmRender(){
@@ -1477,6 +1541,15 @@ function rdmRender(){
   if(rdmView==='kanban')rdmRenderKanban();
 }
 
+function rdmBlChips(ids){
+  if(!ids||!ids.length)return'<span class="rdm-card-link-empty">◈ Sem tarefas vinculadas</span>';
+  return`<div class="rdm-card-bl-ids">${ids.map(id=>{
+    const bl=DB.backlog.find(b=>b.id===id);
+    return`<span class="chip chip-blue" style="cursor:pointer" title="${bl?(bl.descricao||bl.title||'').slice(0,60):id}"
+      onclick="goTo('backlog');setTimeout(()=>{document.getElementById('backlog-search').value='${id}';document.getElementById('backlog-filter-status').value='';renderBacklog();},100)">${id}</span>`;
+  }).join('')}</div>`;
+}
+
 function rdmRenderGantt(){
   const el=document.getElementById('rdm-view-body');
   const mhds=RDM_MONTHS.map(m=>`<div style="text-align:center;font-size:10px;color:var(--muted);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.04em;">${m}</div>`).join('');
@@ -1485,6 +1558,7 @@ function rdmRenderGantt(){
     const color=rdmAreaColor(p.area),left=(s/12)*100,width=((e-s+1)/12)*100;
     const eff=RDM_EFFORT_STYLE[p.effort]||RDM_EFFORT_STYLE['M'];
     const st=RDM_STATUS_STYLE[p.status]||RDM_STATUS_STYLE['planejado'];
+    const ids=p.backlog_ids||[];
     return`<tr>
       <td><div class="rdm-pname">${p.name}</div><div class="rdm-parea">${p.area||''}</div></td>
       <td>${rdmBadge(p.effort||'M',eff.bg,eff.color)}</td>
@@ -1492,23 +1566,26 @@ function rdmRenderGantt(){
       <td style="padding:6px 4px;min-width:380px;">
         <div class="rdm-bar-grid" style="padding:0 4px;">
           ${RDM_MONTHS.map(()=>'<div class="rdm-bar-bg"></div>').join('')}
-          <div class="rdm-bar-fill" style="left:calc(${left}% + 4px);width:calc(${width}% - 2px);background:${color};" title="${p.name}: ${p.start_date} → ${p.end_date}">
+          <div class="rdm-bar-fill" style="left:calc(${left}% + 4px);width:calc(${width}% - 2px);background:${color};">
             <span class="rdm-bar-lbl">${p.name}</span>
           </div>
         </div>
       </td>
+      <td style="min-width:120px">${ids.length?ids.map(id=>`<span class="chip chip-blue" style="font-size:10px;cursor:pointer;margin:1px"
+        onclick="goTo('backlog');setTimeout(()=>{document.getElementById('backlog-search').value='${id}';document.getElementById('backlog-filter-status').value='';renderBacklog();},100)">${id}</span>`).join(''):'<span style="color:var(--muted);font-size:11px">—</span>'}</td>
       <td><div class="rdm-ibtns">
         <button class="rdm-ibtn" onclick="rdmOpenModal('${p.id}')" title="Editar">✎</button>
         <button class="rdm-ibtn btn-danger" onclick="rdmDelete('${p.id}')" title="Excluir">✕</button>
       </div></td>
     </tr>`;
-  }).join(''):`<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--muted);font-size:13px;">Nenhum projeto cadastrado.</td></tr>`;
+  }).join(''):`<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--muted);font-size:13px;">Nenhum projeto cadastrado.</td></tr>`;
   el.innerHTML=`<div class="rdm-gantt-wrap"><table class="rdm-gtable">
     <thead><tr>
       <th style="min-width:200px;">Projeto</th>
       <th style="min-width:70px;">Esforço</th>
       <th style="min-width:120px;">Status</th>
       <th style="padding:9px 4px;min-width:380px;"><div style="display:grid;grid-template-columns:repeat(12,1fr);gap:1px;padding:0 4px;">${mhds}</div></th>
+      <th style="min-width:120px;">Tarefas</th>
       <th style="width:72px;"></th>
     </tr></thead>
     <tbody>${rows}</tbody>
@@ -1520,9 +1597,6 @@ function rdmRenderCards(){
   if(!rdmProjects.length){el.innerHTML=`<div class="empty-state"><div class="empty-icon">◈</div><p>Nenhum projeto cadastrado.</p></div>`;return;}
   el.innerHTML=`<div class="rdm-cards-grid">${rdmProjects.map(p=>{
     const color=rdmAreaColor(p.area),eff=RDM_EFFORT_STYLE[p.effort]||RDM_EFFORT_STYLE['M'],st=RDM_STATUS_STYLE[p.status]||RDM_STATUS_STYLE['planejado'];
-    const linkEl=p.link_backlog
-      ?`<a class="rdm-card-link" href="${p.link_backlog}" target="_blank">◈ Ver backlog</a>`
-      :`<span class="rdm-card-link-empty">◈ Backlog não vinculado</span>`;
     return`<div class="rdm-card">
       <div class="rdm-card-hd"><div class="rdm-card-dot" style="background:${color}"></div><div class="rdm-card-name">${p.name}</div></div>
       ${p.objetivo?`<div class="rdm-card-obj">${p.objetivo}</div>`:''}
@@ -1532,7 +1606,7 @@ function rdmRenderCards(){
         <span class="rdm-card-dates">${rdmFmtMonth(p.start_date)} → ${rdmFmtMonth(p.end_date)}</span>
       </div>
       <div class="rdm-card-ft">
-        ${linkEl}
+        ${rdmBlChips(p.backlog_ids)}
         <div class="rdm-ibtns">
           <button class="rdm-ibtn" onclick="rdmOpenModal('${p.id}')">✎</button>
           <button class="rdm-ibtn btn-danger" onclick="rdmDelete('${p.id}')">✕</button>
@@ -1549,6 +1623,7 @@ function rdmRenderKanban(){
     const st=RDM_STATUS_STYLE[col]||RDM_STATUS_STYLE['planejado'];
     const cards=items.map(p=>{
       const color=rdmAreaColor(p.area),eff=RDM_EFFORT_STYLE[p.effort]||RDM_EFFORT_STYLE['M'];
+      const ids=p.backlog_ids||[];
       return`<div class="rdm-kcard" draggable="true"
         ondragstart="rdmDragStart('${p.id}')"
         ondragover="event.preventDefault();this.classList.add('dragover')"
@@ -1560,6 +1635,7 @@ function rdmRenderKanban(){
           ${rdmBadge(p.effort||'M',eff.bg,eff.color)}
           <span class="rdm-kcard-dates">${rdmFmtMonth(p.start_date)} → ${rdmFmtMonth(p.end_date)}</span>
         </div>
+        ${ids.length?`<div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px">${ids.map(id=>`<span class="chip chip-blue" style="font-size:10px;cursor:pointer" onclick="goTo('backlog');setTimeout(()=>{document.getElementById('backlog-search').value='${id}';document.getElementById('backlog-filter-status').value='';renderBacklog();},100)">${id}</span>`).join('')}</div>`:''}
         <div style="display:flex;justify-content:flex-end;margin-top:8px;">
           <button class="rdm-ibtn" onclick="rdmOpenModal('${p.id}')">✎</button>
         </div>
@@ -1593,11 +1669,13 @@ async function rdmDrop(event,newStatus,cardEl){
 function rdmOpenModal(id){
   rdmEditingId=id||null;
   const p=id?rdmProjects.find(x=>x.id===id):null;
+  const currentIds=p?(p.backlog_ids||[]):[];
+  const blOpts=DB.backlog.map(b=>`<option value="${b.id}" ${currentIds.includes(b.id)?'selected':''}>${b.id} — ${(b.descricao||b.title||'').slice(0,50)}</option>`).join('');
   openModal(p?'Editar projeto':'Novo projeto — Roadmap',`
-    <div class="form-group"><label class="form-label">Nome do projeto *</label><input class="form-input" id="rdm-fname" placeholder="Ex: Agentes de IA" value="${p?p.name:''}"></div>
-    <div class="form-group"><label class="form-label">Objetivo (1 linha)</label><input class="form-input" id="rdm-fobj" placeholder="O que esse projeto entrega?" value="${p?(p.objetivo||''):''}"></div>
+    <div class="form-group"><label class="form-label">Nome do projeto *</label><input class="form-input" id="rdm-fname" placeholder="Ex: Agentes de IA" value="${p?esc(p.name):''}"></div>
+    <div class="form-group"><label class="form-label">Objetivo (1 linha)</label><input class="form-input" id="rdm-fobj" placeholder="O que esse projeto entrega?" value="${p?esc(p.objetivo||''):''}"></div>
     <div class="form-row">
-      <div class="form-group"><label class="form-label">Área / sistema</label><input class="form-input" id="rdm-farea" placeholder="Ex: IA, RH, Suprimentos…" value="${p?(p.area||''):''}"></div>
+      <div class="form-group"><label class="form-label">Área / sistema</label><input class="form-input" id="rdm-farea" placeholder="Ex: IA, RH…" value="${p?esc(p.area||''):''}"></div>
       <div class="form-group"><label class="form-label">Esforço</label>
         <select class="form-select" id="rdm-feffort">
           <option value="P" ${p?.effort==='P'?'selected':''}>P — Pequeno</option>
@@ -1619,8 +1697,10 @@ function rdmOpenModal(id){
         <option value="concluído" ${p?.status==='concluído'?'selected':''}>Concluído</option>
       </select>
     </div>
-    <div class="form-group"><label class="form-label">Link do backlog</label><input class="form-input" id="rdm-flink" placeholder="https://…" value="${p?(p.link_backlog||''):''}"></div>
-    <div class="form-group"><label class="form-label">Notas</label><textarea class="form-textarea" id="rdm-fnotes" placeholder="Contexto, dependências, riscos…">${p?(p.notas||''):''}</textarea></div>
+    <div class="form-group"><label class="form-label">Tarefas do backlog vinculadas <span style="font-weight:400;color:var(--muted)">(Ctrl+clique para múltiplas)</span></label>
+      <select class="form-select" id="rdm-fids" multiple style="min-height:100px">${blOpts}</select>
+    </div>
+    <div class="form-group"><label class="form-label">Notas</label><textarea class="form-textarea" id="rdm-fnotes" placeholder="Contexto, dependências, riscos…">${p?esc(p.notas||''):''}</textarea></div>
   `,rdmSaveProject,'Salvar');
 }
 
@@ -1628,16 +1708,18 @@ async function rdmSaveProject(){
   const name=v('rdm-fname').trim(),start=v('rdm-fstart'),end=v('rdm-fend');
   if(!name||!start||!end){toast('Preencha nome, início e prazo.');return;}
   if(start>end){toast('Início deve ser antes do prazo.');return;}
-  const proj={name,objetivo:v('rdm-fobj').trim(),area:v('rdm-farea').trim()||'Geral',start_date:start,end_date:end,effort:v('rdm-feffort'),status:v('rdm-fstatus'),link_backlog:v('rdm-flink').trim(),notas:v('rdm-fnotes').trim()};
+  const selEl=document.getElementById('rdm-fids');
+  const ids=selEl?Array.from(selEl.selectedOptions).map(o=>o.value).filter(Boolean):[];
+  const proj={name,objetivo:v('rdm-fobj').trim(),area:v('rdm-farea').trim()||'Geral',start_date:start,end_date:end,effort:v('rdm-feffort'),status:v('rdm-fstatus'),backlog_ids:JSON.stringify(ids),notas:v('rdm-fnotes').trim()};
   let ok;
   if(rdmEditingId){
     ok=await sbUpdate(RDM_TABLE,rdmEditingId,proj);
-    if(ok){const idx=rdmProjects.findIndex(x=>x.id===rdmEditingId);if(idx>=0)Object.assign(rdmProjects[idx],proj);}
+    if(ok){const idx=rdmProjects.findIndex(x=>x.id===rdmEditingId);if(idx>=0)Object.assign(rdmProjects[idx],{...proj,backlog_ids:ids});}
   }else{
     proj.id='rdm-'+Date.now();
     proj.created_at=new Date().toISOString().slice(0,10);
     ok=await sbInsert(RDM_TABLE,proj);
-    if(ok)rdmProjects.push(proj);
+    if(ok)rdmProjects.push({...proj,backlog_ids:ids});
   }
   if(ok){closeModal();rdmRender();toast(rdmEditingId?'Projeto atualizado!':'Projeto criado!');}
   else toast('Erro ao salvar.');
@@ -1651,6 +1733,96 @@ async function rdmDelete(id){
   if(ok){rdmProjects=rdmProjects.filter(x=>x.id!==id);rdmRender();toast('Projeto removido.');}
   else toast('Erro ao remover.');
 }
+
+
+// ══════════════════════════════════════
+// PIN — REFINAMENTO
+// ══════════════════════════════════════
+const PIN_CODE = '2810'; // ← altere aqui o PIN
+let pinBuffer = '';
+let pinUnlocked = false;
+let pinTarget = null; // função a executar após unlock
+
+function goToRefinamento() {
+  if (pinUnlocked) {
+    _goToRefinamento();
+  } else {
+    pinTarget = _goToRefinamento;
+    pinBuffer = '';
+    pinUpdateDots();
+    document.getElementById('pin-error').textContent = '';
+    document.getElementById('pin-overlay').classList.add('open');
+  }
+}
+
+function _goToRefinamento() {
+  currentView = 'refinamento';
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-refinamento').classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('active', b.getAttribute('onclick')?.includes("'refinamento'")));
+  const m = PAGE_META['refinamento'];
+  document.getElementById('page-title').textContent = m.title;
+  document.getElementById('page-badge').textContent = m.badge;
+  renderTopbarActions('refinamento');
+  renderRefinamento();
+}
+
+function pinPress(val) {
+  const errEl = document.getElementById('pin-error');
+  errEl.textContent = '';
+  document.querySelectorAll('.pin-dot').forEach(d => d.classList.remove('error'));
+
+  if (val === 'del') {
+    pinBuffer = pinBuffer.slice(0, -1);
+  } else if (val === 'clear') {
+    pinBuffer = '';
+  } else {
+    if (pinBuffer.length >= 4) return;
+    pinBuffer += val;
+  }
+
+  pinUpdateDots();
+
+  if (pinBuffer.length === 4) {
+    if (pinBuffer === PIN_CODE) {
+      pinUnlocked = true;
+      document.getElementById('pin-overlay').classList.remove('open');
+      pinBuffer = '';
+      pinUpdateDots();
+      if (pinTarget) { pinTarget(); pinTarget = null; }
+    } else {
+      errEl.textContent = 'PIN incorreto. Tente novamente.';
+      document.querySelectorAll('.pin-dot').forEach(d => d.classList.add('error'));
+      setTimeout(() => {
+        pinBuffer = '';
+        pinUpdateDots();
+        document.querySelectorAll('.pin-dot').forEach(d => d.classList.remove('error'));
+      }, 900);
+    }
+  }
+}
+
+function pinUpdateDots() {
+  for (let i = 0; i < 4; i++) {
+    document.getElementById('pd' + i).classList.toggle('filled', i < pinBuffer.length);
+  }
+}
+
+function pinCancel() {
+  document.getElementById('pin-overlay').classList.remove('open');
+  pinBuffer = '';
+  pinTarget = null;
+  pinUpdateDots();
+  document.getElementById('pin-error').textContent = '';
+}
+
+// Suporte a teclado no PIN
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('pin-overlay').classList.contains('open')) return;
+  if (e.key >= '0' && e.key <= '9') pinPress(e.key);
+  else if (e.key === 'Backspace') pinPress('del');
+  else if (e.key === 'Escape') pinCancel();
+});
 
 function closeModal(){document.getElementById('modal-overlay').classList.remove('open');window._modalSave=null;}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
